@@ -1,35 +1,34 @@
 const { spawn } = require('child_process');
-const configs = require('../configs/config.js')
+const configs = require('../configs/config.js');
 
-const test = null;
-
-function startVahleimServer(serverProcess) {
+function startValheimServer(interaction) {
   return new Promise((resolve, reject) => {
-    serverProcess = spawn('bash', ['./start_server_bepinex.sh'],
-      {
-        windowsHide:true,
-        cwd: configs.serverPath,
-        detached: true
-      }
-    );
-    
-    serverProcess.stdout.on('data', (data) => {
-      console.log(`stdout: ${data}`);
+    const serverProcess = spawn('bash', ['./start_server_bepinex.sh'], {
+      windowsHide: true,
+      cwd: configs.serverPath,
+      detached: true,
     });
-    
+
+    serverProcess.stdout.on('data', (data) => {
+      const output = data.toString();
+      console.log(`stdout: ${output}`);
+      if (output.includes('Am I Host')) {
+        interaction.editReply('Server is on');
+        resolve(true);
+      }
+    });
+
     serverProcess.stderr.on('data', (data) => {
       console.error(`stderr: ${data}`);
-      reject(true);
+      reject(new Error(`Server error: ${data.toString()}`));
     });
-    
+
     serverProcess.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
     });
-    
-    resolve(true);
   });
-};
+}
 
 module.exports = {
-  startVahleimServer
+  startValheimServer,
 };
