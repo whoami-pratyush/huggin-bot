@@ -11,24 +11,41 @@ function initializeRCON() {
 }
 
 // Stop server using RCON
-function stopValheimServer(process) {
-  if (!process || process.killed) {
-    console.error("No active RCON process");
-    return;
+function stopValheimServer(process, interaction) {
+    // Check if process is valid and not already killed
+    if (!process || process.killed) {
+      console.error("No active RCON process");
+      interaction.editReply("The server is not running, so it cannot be stopped.");
+      return;
+    }
+  
+    // Inform the user that we are sending the shutdown command
+    interaction.editReply("Attempting to stop the server...");
+  
+    // Send shutdown command after a short delay
+    setTimeout(() => {
+      process.stdin.write("shutdown\n");
+    }, 5000);
+  
+    // Confirm the server stop action to the user
+    console.log("Server shutdown command sent");
+    interaction.followUp("Server stopped successfully.");
   }
-  setTimeout(() => {
-    process.stdin.write("shutdown\n");
-  }, 5000);
-
-  console.log("Server Stopped successfully");
-}
-
-// Set up error handling
-testProcess.on("error", (err) => {
-  console.error("RCON error:", err);
-});
-
-// Set up output monitoring
-testProcess.stdout.on("data", (data) => {
-  console.log("RCON:", data.toString());
-});
+  
+  // Set up error handling
+  process.on("error", (err) => {
+    console.error("RCON error:", err);
+    interaction.followUp(`An error occurred while trying to stop the server: ${err.message}`);
+  });
+  
+  // Set up output monitoring
+  process.stdout.on("data", (data) => {
+    console.log("RCON:", data.toString());
+    // Optionally, send the output to Discord
+    interaction.followUp(`RCON Output: ${data.toString()}`);
+  });
+  
+  module.exports = {
+    stopValheimServer
+  };
+  
