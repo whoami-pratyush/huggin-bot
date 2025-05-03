@@ -1,47 +1,34 @@
 const { spawn } = require("child_process");
-const config = require("../configs/config.js");
-const { log, error } = require("console");
+let testProcess = null;
 
-function initializeRCON(rconProcess) {
-  reconProcess = spawn("utils/recon.exe", [], {
-    detached: true,
+// Initialize RCON connection
+function initializeRCON() {
+  return spawn("./rcon", [], {
+    cwd: "utils",
+    stdio: ["pipe", "pipe", "pipe"], // Full control of all streams
     windowsHide: true,
   });
-  rconProcess.stdout.on("data", (chunk) => {
-    console.log("[RCON]", chunk.toString().trim());
-  });
-
-  rconProcess.stderr.on("data", (chunk) => {
-    console.error("[RCON ERROR]", chunk.toString().trim());
-  });
-
-  rconProcess.on("error", (err) => {
-    console.error("[RCON FAILED TO START]", err);
-  });
-
-  return rconProcess;
 }
 
-function stopValheimServer(rconProcess, isServerRunning) {
-  return new Promise((resolve, reject) => {
-    rconProcess = spawn("utils\\rcon.exe", [], {
-      windowsHide: true,
-      detached: true,
-    });
-    rconProcess.stdout.on("data", (chunks) => {
-      const rconLog = chunks.toString().trim();
-      console.log(rconLog);
-      resolve(true);
-    });
-    if (isServerRunning) {
-      rconProcess.stdin.write("127.0.0.1:2458\n");
-      rconProcess.stdin.write("ChangeMe\n");
-      rconProcess.stdin.write("shutdown\n");
-    }
-    rconProcess.stderr.on("error", (err) => {
-      console.log(err);
-    });
-  });
+// Stop server using RCON
+function stopValheimServer(process) {
+  if (!process || process.killed) {
+    console.error("No active RCON process");
+    return;
+  }
+  setTimeout(() => {
+    process.stdin.write("shutdown\n");
+  }, 5000);
+
+  console.log("Server Stopped successfully");
 }
 
-module.exports = { stopValheimServer };
+// Set up error handling
+testProcess.on("error", (err) => {
+  console.error("RCON error:", err);
+});
+
+// Set up output monitoring
+testProcess.stdout.on("data", (data) => {
+  console.log("RCON:", data.toString());
+});

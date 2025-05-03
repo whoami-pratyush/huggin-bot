@@ -1,29 +1,35 @@
-const { spawn } = require("child_process");
-const config = require("../configs/config.js");
-const { stdout } = require("process");
-const { error } = require("console");
+const { spawn } = require('child_process');
+const configs = require('../configs/config.js')
 
-function startValheimServer(serverProcess, isServerRunning) {
+const test = null;
+
+function startVahleimServer(serverProcess) {
   return new Promise((resolve, reject) => {
-    serverProcess = spawn("cmd.exe", ["/c", "start_headless_server.bat"], {
-      cwd: config.serverPath,
-      windowsHide: true,
-    });
-    serverProcess.stdout.on("data", (chunk) => {
-      const serverLogs = chunk.toString().trim();
-      console.log(serverLogs);
-      if(serverLogs.includes('Am I Host? True')){
-        resolve(true);
-        isServerRunning = true;
+    serverProcess = spawn('bash', ['./start_server_bepinex.sh'],
+      {
+        windowsHide:true,
+        cwd: configs.serverPath,
+        detached: true
       }
+    );
+    
+    serverProcess.stdout.on('data', (data) => {
+      console.log(`stdout: ${data}`);
     });
-    serverProcess.stderr.on("error",(chunk) =>{
-      const serverErrorLogs = chunk.toString().trim();
-      console.error(serverErrorLogs);
-      reject(error);
-
-    })
+    
+    serverProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      reject(true);
+    });
+    
+    serverProcess.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
+    
+    resolve(true);
   });
-}
+};
 
-module.exports = { startValheimServer };
+module.exports = {
+  startVahleimServer
+};

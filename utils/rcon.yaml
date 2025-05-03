@@ -2,5 +2,5 @@ default:
   address: "127.0.0.1:2458" # host:port, for example 127.0.0.1:16260
   password: "ChangeMe"
   log: "rcon-default.log"
-  type: "" # rcon, telnet, web.
+  type: "rcon" # rcon, telnet, web.
   timeout: "10s"

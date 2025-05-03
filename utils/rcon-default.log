@@ -1,5 +1,36 @@
-[2025-04-26 05:43:12] 127.0.0.1:2458: shutdown
-04/26/2025 05:43:12: Console: Shutting down...
-04/26/2025 05:43:12: Shutting down...
-04/26/2025 05:43:12: Available space to current user: 86214176768. Saving is blocked if below: 42650188 bytes. Warnings are given if below: 85300376
+[2025-04-29 03:25:15] 127.0.0.1:2458: shutdown
+04/29/2025 03:25:15: Console: Shutting down...
+04/29/2025 03:25:15: Shutting down...
+04/29/2025 03:25:15: Available space to current user: 275880574976. Saving is blocked if below: 45156010 bytes. Warnings are given if below: 90312020
+
+[2025-04-29 15:38:11] 127.0.0.1:2458: shutdown
+04/29/2025 15:38:11: Console: Shutting down...
+04/29/2025 15:38:11: Shutting down...
+04/29/2025 15:38:11: Available space to current user: 272776892416. Saving is blocked if below: 45156010 bytes. Warnings are given if below: 90312020
+
+[2025-04-29 15:52:38] 127.0.0.1:2458: node "/home/remon/work/huggin-bot/commands/rconCom
+04/29/2025 15:52:38: Console: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+04/29/2025 15:52:38: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+
+[2025-04-29 15:55:02] 127.0.0.1:2458: node "/home/remon/work/huggin-bot/commands/rconCom
+04/29/2025 15:55:02: Console: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+04/29/2025 15:55:02: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+
+[2025-04-29 15:58:07] 127.0.0.1:2458: node "/home/remon/work/huggin-bot/commands/rconCom
+04/29/2025 15:58:07: Console: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+04/29/2025 15:58:07: 'node' is not a recognized command. Type 'help' to see a list of valid commands.
+
+[2025-04-29 15:58:21] 127.0.0.1:2458: stop
+04/29/2025 15:58:21: Console: 'stop' is not a recognized command. Type 'help' to see a list of valid commands.
+04/29/2025 15:58:21: 'stop' is not a recognized command. Type 'help' to see a list of valid commands.
+
+[2025-04-29 15:58:50] 127.0.0.1:2458: shutdown
+04/29/2025 15:58:50: Console: Shutting down...
+04/29/2025 15:58:50: Shutting down...
+04/29/2025 15:58:50: Available space to current user: 272775299072. Saving is blocked if below: 45156010 bytes. Warnings are given if below: 90312020
+
+[2025-05-02 09:33:43] 127.0.0.1:2458: shutdown
+05/02/2025 09:33:43: Console: Shutting down...
+05/02/2025 09:33:43: Shutting down...
+05/02/2025 09:33:43: Available space to current user: 236622336000. Saving is blocked if below: 45156010 bytes. Warnings are given if below: 90312020
 
