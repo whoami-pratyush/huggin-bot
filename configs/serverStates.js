@@ -5,6 +5,8 @@ const valheimServer = {
 const rconClient = {
   isRunning: false,
   process: null,
+  cooldown: false,
+
 };
 
 module.exports = { valheimServer, rconClient };
